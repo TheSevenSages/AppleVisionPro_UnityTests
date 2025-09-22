@@ -11,7 +11,6 @@ public class InteractableElement : MonoBehaviour
     [SerializeField] private UnityEvent<InteractionData> OnRelease;
 
     private UserInput input;
-
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -24,15 +23,27 @@ public class InteractableElement : MonoBehaviour
         if (input.IsInteractionStart(gameObject))
         {
             GetComponent<VisionOSHoverEffect>().enabled = false;
-            OnClick.Invoke(input.GetInteractionData());
+
+            if (OnClick != null)
+            {
+                OnClick.Invoke(input.GetInteractionData());
+            }
         }
         else if (input.IsInteractionOngoing(gameObject))
         {
-            OnHold.Invoke(input.GetInteractionData());
+            Debug.Log(name);
+            if (OnHold != null)
+            {
+                OnHold.Invoke(input.GetInteractionData());
+            }
         }
         else if (input.IsInteractionEnd(gameObject))
         {
-            OnRelease.Invoke(input.GetInteractionData());
+            if (OnRelease != null)
+            {
+                OnRelease.Invoke(input.GetInteractionData());
+            }
+
             GetComponent<VisionOSHoverEffect>().enabled = true;
         }
     }

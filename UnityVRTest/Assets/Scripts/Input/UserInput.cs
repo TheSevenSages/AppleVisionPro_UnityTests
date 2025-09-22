@@ -8,6 +8,7 @@ using TouchPhase = UnityEngine.InputSystem.TouchPhase;
 using Unity.Networking.Transport.Error;
 using System.Security.Cryptography;
 using SpatialPointerPhase = UnityEngine.InputSystem.LowLevel.SpatialPointerPhase;
+using Unity.VisualScripting;
 
 // Data structure used to pass information on to interaction events
 public class InteractionData
@@ -34,7 +35,7 @@ public class UserInput : MonoBehaviour
 
     private InteractionData data;
 
-    private void Start()
+    private void Awake()
     {
         if (instance == null)
         {

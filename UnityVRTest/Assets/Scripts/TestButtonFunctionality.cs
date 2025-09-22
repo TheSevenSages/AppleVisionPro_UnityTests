@@ -11,20 +11,17 @@ public class TestButtonFunctionality : MonoBehaviour
         og_mat = GetComponent<Renderer>().material;
     }
 
-    public void Click()
+    public void Click(InteractionData data)
     {
         GetComponent<Renderer>().material = a_mat;
     }
 
     public void Hold(InteractionData data)
     {
-        transform.position += data.DeltaPosition;
-        transform.LookAt(data.HeadPosition);
-        transform.Rotate(new Vector3(0, 90, 90));
         GetComponent<Renderer>().material = b_mat;
     }
 
-    public void Release()
+    public void Release(InteractionData data)
     {
         GetComponent<Renderer>().material = og_mat;
     }
