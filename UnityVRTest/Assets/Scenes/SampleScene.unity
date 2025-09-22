@@ -1365,6 +1365,7 @@ GameObject:
   - component: {fileID: 1783867377}
   - component: {fileID: 1783867381}
   - component: {fileID: 1783867382}
+  - component: {fileID: 1783867383}
   m_Layer: 0
   m_Name: Button
   m_TagString: Untagged
@@ -1474,17 +1475,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86a14dbc4a06ff742a0a485ca271d433, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  a_mat: {fileID: 2100000, guid: 7b5fa1aadc01534418e20bf0c6ea1fc4, type: 2}
-  b_mat: {fileID: 2100000, guid: d6a76f5bf9249444b86c6cc87b61e0c3, type: 2}
-  OnClickStart:
-    m_PersistentCalls:
-      m_Calls: []
   OnClick:
     m_PersistentCalls:
-      m_Calls: []
-  OnClickEnd:
+      m_Calls:
+      - m_Target: {fileID: 1783867383}
+        m_TargetAssemblyTypeName: TestButtonFunctionality, Assembly-CSharp
+        m_MethodName: Click
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnHold:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1783867383}
+        m_TargetAssemblyTypeName: TestButtonFunctionality, Assembly-CSharp
+        m_MethodName: Hold
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnRelease:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1783867383}
+        m_TargetAssemblyTypeName: TestButtonFunctionality, Assembly-CSharp
+        m_MethodName: Release
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1783867382
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1502,6 +1537,20 @@ MonoBehaviour:
   m_IntensityMultiplier: 1
   m_FadeInDuration: 0
   m_FadeOutDuration: 0
+--- !u!114 &1783867383
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1783867375}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32e637ede5c8761428200fa56c57c790, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  a_mat: {fileID: 2100000, guid: 7b5fa1aadc01534418e20bf0c6ea1fc4, type: 2}
+  b_mat: {fileID: 2100000, guid: d6a76f5bf9249444b86c6cc87b61e0c3, type: 2}
 --- !u!1 &1958556953
 GameObject:
   m_ObjectHideFlags: 0
