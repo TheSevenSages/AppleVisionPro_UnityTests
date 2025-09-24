@@ -22,8 +22,6 @@ public class InteractableElement : MonoBehaviour
     {
         if (input.IsInteractionStart(gameObject))
         {
-            GetComponent<VisionOSHoverEffect>().enabled = false;
-
             if (OnClick != null)
             {
                 OnClick.Invoke(input.GetInteractionData());
@@ -31,7 +29,6 @@ public class InteractableElement : MonoBehaviour
         }
         else if (input.IsInteractionOngoing(gameObject))
         {
-            Debug.Log(name);
             if (OnHold != null)
             {
                 OnHold.Invoke(input.GetInteractionData());
@@ -43,8 +40,6 @@ public class InteractableElement : MonoBehaviour
             {
                 OnRelease.Invoke(input.GetInteractionData());
             }
-
-            GetComponent<VisionOSHoverEffect>().enabled = true;
         }
     }
 }

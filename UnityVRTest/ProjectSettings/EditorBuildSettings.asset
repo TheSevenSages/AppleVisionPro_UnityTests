@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
+    path: Assets/Scenes/AVPScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
   m_configObjects:
     UnityEditor.XR.VisionOS.VisionOSSettings: {fileID: 11400000, guid: f9fea0346b19b5645a57ec3d6298f7a1, type: 2}

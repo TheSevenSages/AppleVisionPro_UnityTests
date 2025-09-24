@@ -6,7 +6,10 @@ public class DragableObject : MonoBehaviour
     public void Drag(InteractionData data)
     {
         dragObject.transform.position += data.DeltaPosition;
-        dragObject.transform.LookAt(data.HeadPosition);
+
+        Vector3 lookat_pos = data.HeadPosition;
+        lookat_pos.y = dragObject.transform.position.y;
+        dragObject.transform.LookAt(lookat_pos);
         dragObject.transform.Rotate(new Vector3(0, 90, 90));
     }
 }
