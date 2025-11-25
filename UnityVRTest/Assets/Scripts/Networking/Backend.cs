@@ -1,6 +1,17 @@
 using UnityEngine;
 using Microsoft.AspNetCore.SignalR.Client;
+using System.Threading.Tasks;
+using System;
+using NUnit.Framework;
+using System.Collections.Generic;
+using Newtonsoft.Json;
 
+[System.Serializable]
+public class Device
+{
+    public string name { get; set; }
+    public string id { get; set; }
+}
 public class Backend : MonoBehaviour
 {
     [Header("Settings")]
@@ -23,7 +34,29 @@ public class Backend : MonoBehaviour
             .Build();
 
         await connection.StartAsync();
-        await connection.SendAsync("InitDevice", deviceName, isHost);
+
+        try
+        {
+            await connection.InvokeAsync("InitDevice", deviceName, isHost);
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError("Failed to init device: " + e.Message);
+        }
+    }
+
+    public async Task<List<Device>> GetGuestList()
+    {
+        try
+        {
+            string response = await connection.InvokeAsync<string>("RequestServerData", "GUESTS");
+            return JsonConvert.DeserializeObject<List<Device>>(response);
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError("Failed to retrieve guest list: " + e.Message);
+            return null;
+        }
     }
 
     public void GetMessage(string message)
