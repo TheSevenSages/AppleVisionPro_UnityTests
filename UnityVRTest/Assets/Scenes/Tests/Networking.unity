@@ -2364,7 +2364,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Backend
   deviceName: DEVICE_NAME
-  isHost: 0
+  isHost: 1
   ip: 127.0.0.1
   port: 8080
 --- !u!1 &1351592391
