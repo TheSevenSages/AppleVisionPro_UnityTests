@@ -44,6 +44,9 @@ public class Backend : MonoBehaviour
             await connection.InvokeAsync<Task>("InitDevice", deviceName, isHost);
             Debug.Log("Initialized with server!");
             isConnected = true;
+
+            // Map GetMessage
+            connection.On<string>("GetMessage", GetMessage);
         }
         catch (System.Exception e)
         {
@@ -106,5 +109,13 @@ public class Backend : MonoBehaviour
     public void GetMessage(string message)
     {
         Debug.Log(message);
+    }
+
+    private void OnDestroy()
+    {
+        if (connection != null)
+        {
+            connection.StopAsync();
+        }
     }
 }
