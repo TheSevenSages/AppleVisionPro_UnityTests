@@ -55,10 +55,12 @@ public class GuestList : MonoBehaviour
             // Set onclick to send an invite for this guest
             newListItem.GetComponent<Button>().onClick.AddListener(async () =>
             {
+                float before = Time.time;
                 bool success = await backend.SendInviteToGuest(guest.id);
                 if (success)
                 {
-                    Debug.Log($"Now linked to guest(ID={guest.id},NAME={guest.name})");
+                    Debug.Log($"Now linked to guest(ID={guest.id},NAME={guest.name}) [{(int)((Time.time - before) * 1000)}ms]");
+                    RefreshGuestList();
                 }
             });
         }

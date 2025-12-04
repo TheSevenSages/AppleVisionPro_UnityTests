@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.XR.ARSubsystems;
 
 [System.Serializable]
@@ -26,6 +27,17 @@ public class Backend : MonoBehaviour
     [SerializeField]
     string port = "8080";
 
+    // Events to be called based on recieved messages
+    [HideInInspector]
+    public static UnityEvent<string> TextMessageEvent = new UnityEvent<string>();
+
+    // Represents a package sent from the server
+    private class ServerPackage
+    {
+        public string type;
+        public string message;
+    }
+
     private HubConnection connection;
     private bool isConnected = false;
     private Task initTask = null;
@@ -45,7 +57,7 @@ public class Backend : MonoBehaviour
             Debug.Log("Initialized with server!");
             isConnected = true;
 
-            // Map GetMessage
+            // Map methods to SignalR client endpoints
             connection.On<string>("GetMessage", GetMessage);
         }
         catch (System.Exception e)
@@ -106,9 +118,33 @@ public class Backend : MonoBehaviour
         }
     }
 
-    public void GetMessage(string message)
+    /// <summary>
+    /// Processes incoming messages from the server
+    /// </summary>
+    /// <param name="package">The message from the server. Json with the structure {type, message}</param>
+    private void GetMessage(string package)
     {
-        Debug.Log(message);
+        // Parse the package Json into the type and message
+        ServerPackage _package = JsonConvert.DeserializeObject<ServerPackage>(package);
+        ProcessPackage(_package);
+    }
+
+    /// <summary>
+    /// Handle server packages properly according to its type
+    /// </summary>
+    /// <param name="package">The package sent by the server</param>
+    private void ProcessPackage(ServerPackage package)
+    {
+        switch (package.type)
+        {
+            case "TEXT":
+                TextMessageEvent.Invoke(package.message);
+                break;
+
+            default:
+                Debug.LogWarning($"Recieved package of unknown type: {package.type}");
+                break;
+        }
     }
 
     private void OnDestroy()
