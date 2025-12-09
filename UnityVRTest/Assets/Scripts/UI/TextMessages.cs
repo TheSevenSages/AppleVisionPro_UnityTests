@@ -9,7 +9,7 @@ public class TextMessages : MonoBehaviour
 {
     private void Start()
     {
-        Messanger.TextMessageEvent.AddListener(ProcessTextMessage);
+        Messenger.TextMessageEvent.AddListener(ProcessTextMessage);
     }
 
     void ProcessTextMessage(string text)

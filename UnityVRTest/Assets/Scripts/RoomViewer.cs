@@ -10,7 +10,7 @@ public class RoomViewer : MonoBehaviour
     List<MeshesPayload> payloads = new List<MeshesPayload>();
     void Awake()
     {
-        Messanger.MeshesMessageEvent.AddListener(GetMeshes);
+        Messenger.MeshesMessageEvent.AddListener(GetMeshes);
     }
 
     private void Update()

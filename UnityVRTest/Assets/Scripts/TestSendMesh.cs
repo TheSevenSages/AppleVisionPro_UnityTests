@@ -10,6 +10,6 @@ public class TestSendMesh : MonoBehaviour
 
         MeshesPayload meshes = new MeshesPayload();
         meshes.meshes.Add(mesh);
-        Messanger.SendMeshes(meshes);
+        Messenger.SendMeshes(meshes);
     }
 }

@@ -10,7 +10,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.XR.ARSubsystems;
-using static Messanger;
+using static Messenger;
 using static UnityEngine.Rendering.ReloadAttribute;
 
 public class Backend : MonoBehaviour
@@ -126,14 +126,14 @@ public class Backend : MonoBehaviour
         try
         {
             string type = JsonConvert.DeserializeObject<PackageWrapper>(package).type;
-            if (!Enum.IsDefined(typeof(Messanger.MessageTypes), type))
+            if (!Enum.IsDefined(typeof(Messenger.MessageTypes), type))
             {
                 throw new Exception($"Invalid message type of {type}");
             }
 
             // Parse the package Json into the type and message
-            var _package = JsonConvert.DeserializeObject<Messanger.Message>(package);
-            Messanger.ProcessIncomingMessage(_package);
+            var _package = JsonConvert.DeserializeObject<Messenger.Message>(package);
+            Messenger.ProcessIncomingMessage(_package);
         }
         catch (System.Exception e)
         {
@@ -141,7 +141,7 @@ public class Backend : MonoBehaviour
         }
     }
 
-    public static async void SendMessage(Messanger.Message message)
+    public static async void SendMessage(Messenger.Message message)
     {
         try
         {

@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using static UnityEngine.Rendering.ReloadAttribute;
 
-public static class Messanger
+public static class Messenger
 {
     // All of the available message types
     public enum MessageTypes
