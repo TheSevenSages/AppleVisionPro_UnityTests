@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class GuestList : MonoBehaviour
 {
-    public List<Guest> guests;
+    public List<DataStructures.Device> guests;
     public Backend backend;
     public ScrollRect list;
     public GameObject listItem;
@@ -39,7 +39,7 @@ public class GuestList : MonoBehaviour
 
         // Repopulate it with the updated items
         float currentYOffset = 0;
-        foreach (Guest guest in guests)
+        foreach (var guest in guests)
         {
             // Create new list item for this guest
             GameObject newListItem = GameObject.Instantiate(listItem, list.content, false);

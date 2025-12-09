@@ -5,48 +5,36 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Unity.AppUI.Core;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.XR.ARSubsystems;
+using static Messanger;
 
-[System.Serializable]
-public class Guest
-{
-    public string name { get; set; }
-    public string id { get; set; }
-}
 public class Backend : MonoBehaviour
 {
     [Header("Settings")]
+    [SerializeField]
+    private BackendSettingsSO BackendSettings;
     public string deviceName = "DEVICE_NAME";
     public bool isHost = false;
-
-    [Header("API Location")]
-    [SerializeField]
-    string ip = "127.0.0.1";
-    [SerializeField]
-    string port = "8080";
-
-    // Events to be called based on recieved messages
-    [HideInInspector]
-    public static UnityEvent<string> TextMessageEvent = new UnityEvent<string>();
-
-    // Represents a package sent from the server
-    private class ServerPackage
-    {
-        public string type;
-        public string message;
-    }
 
     private HubConnection connection;
     private bool isConnected = false;
     private Task initTask = null;
 
+    // Represents a package sent from the server
+    private class PackageWrapper
+    {
+        public string type;
+    }
+
     private async void Awake()
     {
         // Build the connection
         connection = new HubConnectionBuilder()
-            .WithUrl($"http://{ip}:{port}/connectionHub")
+            .WithUrl($"http://{BackendSettings.ip}:{BackendSettings.port}/connectionHub")
             .Build();
 
         await connection.StartAsync();
@@ -80,7 +68,7 @@ public class Backend : MonoBehaviour
         if (!isConnected) { throw new Exception("This client is not initialized with the server yet."); }
     }
 
-    public async Task<List<Guest>> GetGuestList()
+    public async Task<List<DataStructures.Device>> GetGuestList()
     {
         // Make sure that all the initialization has been completed before continuing
         try
@@ -88,12 +76,12 @@ public class Backend : MonoBehaviour
             await WaitForInit();
 
             string response = await connection.InvokeAsync<string>("RequestServerData", "GUESTS");
-            return JsonConvert.DeserializeObject<List<Guest>>(response);
+            return JsonConvert.DeserializeObject<List<DataStructures.Device>>(response);
         }
         catch (System.Exception e)
         {
             Debug.LogError("Failed to retrieve guest list: " + e.Message);
-            return new List<Guest>();
+            return new List<DataStructures.Device>();
         }
     }
 
@@ -124,26 +112,21 @@ public class Backend : MonoBehaviour
     /// <param name="package">The message from the server. Json with the structure {type, message}</param>
     private void GetMessage(string package)
     {
-        // Parse the package Json into the type and message
-        ServerPackage _package = JsonConvert.DeserializeObject<ServerPackage>(package);
-        ProcessPackage(_package);
-    }
-
-    /// <summary>
-    /// Handle server packages properly according to its type
-    /// </summary>
-    /// <param name="package">The package sent by the server</param>
-    private void ProcessPackage(ServerPackage package)
-    {
-        switch (package.type)
+        try
         {
-            case "TEXT":
-                TextMessageEvent.Invoke(package.message);
-                break;
+            string type = JsonConvert.DeserializeObject<PackageWrapper>(package).type;
+            if (!Enum.IsDefined(typeof(Messanger.MessageTypes), type))
+            {
+                throw new Exception($"Invalid message type of {type}");
+            }
 
-            default:
-                Debug.LogWarning($"Recieved package of unknown type: {package.type}");
-                break;
+            // Parse the package Json into the type and message
+            Messanger.Message _package = JsonConvert.DeserializeObject<Messanger.Message>(package);
+            Messanger.ProcessIncomingMessage(_package);
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError("Failed to deserialize incoming message: " + e.Message);
         }
     }
 
