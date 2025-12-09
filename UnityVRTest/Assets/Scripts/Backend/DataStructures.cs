@@ -1,12 +1,109 @@
+using HoloToolkit.Unity;
+using NUnit.Framework;
+using System;
+using System.Collections.Generic;
+using System.Text.Json.Serialization;
 using UnityEngine;
 
-public class DataStructures
+namespace DataStructures
 {
     // Represents another client connected to the server
-    [System.Serializable]
+    [Serializable]
     public class Device
     {
         public string name { get; set; }
         public string id { get; set; }
+    }
+
+    [Serializable]
+    public class TransformPayload
+    {
+        public TransformPayload() { }
+        //public TransformPayload(Transform t)
+        //{
+        //    position = t.position;
+        //    rotation = t.rotation;
+        //}
+        public TransformPayload(Vector3 t)
+        {
+            posX = t.x;
+            posY = t.y;
+            posZ = t.z;
+        }
+
+        public float posX = 0.0f;
+        public float posY = 0.0f;
+        public float posZ = 0.0f;
+        public float rotX = 0.0f;
+        public float rotY = 0.0f;
+        public float rotZ = 0.0f;
+        public float rotW = 0.0f;
+
+        //[JsonIgnore]
+        //public Vector3 position
+        //{
+        //    get 
+        //    {
+        //        return new Vector3(posX, posY, posZ);
+        //    }
+        //    set
+        //    {
+        //        posX = value.x;
+        //        posY = value.y;
+        //        posZ = value.z;
+        //    }
+        //}
+        //[JsonIgnore]
+        //public Quaternion rotation
+        //{
+        //    get
+        //    {
+        //        return new Quaternion(rotX, rotY, rotZ, rotW);
+        //    }
+        //    set
+        //    {
+        //        rotX = value.x;
+        //        rotY = value.y;
+        //        rotZ = value.z;
+        //        rotW = value.w;
+        //    }
+        //}
+    }
+
+    [Serializable]
+    // Mesh messages
+    public class MeshPayload : TransformPayload
+    {
+        public enum MeshTypes
+        {
+            UNKNOWN,
+            WALL,
+            FLOOR
+        }
+
+        public MeshTypes type = MeshTypes.UNKNOWN;
+        public string encodedMesh = "";
+
+        public static string EncodeMesh(Mesh mesh)
+        {
+            byte[] meshBytes = SimpleMeshSerializer.Serialize(mesh);
+            string encoded = Convert.ToBase64String(meshBytes);
+            return encoded;
+        }
+
+        public static Mesh DecodeMesh(string encoded)
+        {
+            byte[] meshBytes = Convert.FromBase64String(encoded);
+            Mesh m = SimpleMeshSerializer.DeserializeSingleMesh(meshBytes);
+            return m;
+        }
+    }
+
+    [Serializable]
+    public class MeshesPayload
+    {
+        public bool foundFloor = false;
+        public float floorY = 0.0f;
+        public List<MeshPayload> meshes = new List<MeshPayload>();
     }
 }

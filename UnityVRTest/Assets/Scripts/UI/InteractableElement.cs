@@ -1,7 +1,11 @@
 using Unity.PolySpatial;
 using UnityEngine;
 using UnityEngine.Events;
+
+#if HEADSET_BUILD
 using UnityEngine.XR.VisionOS;
+#endif
+
 
 public class InteractableElement : MonoBehaviour
 {

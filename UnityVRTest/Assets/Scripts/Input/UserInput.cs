@@ -2,13 +2,16 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Unity.PolySpatial.XR;
 using Unity.PolySpatial.InputDevices;
-using UnityEngine.XR.VisionOS.InputDevices;
 using UnityEngine.InputSystem.LowLevel;
 using TouchPhase = UnityEngine.InputSystem.TouchPhase;
 using Unity.Networking.Transport.Error;
 using System.Security.Cryptography;
 using SpatialPointerPhase = UnityEngine.InputSystem.LowLevel.SpatialPointerPhase;
 using Unity.VisualScripting;
+
+# if HEADSET_BUILD
+using UnityEngine.XR.VisionOS.InputDevices;
+#endif
 
 // Data structure used to pass information on to interaction events
 public class InteractionData

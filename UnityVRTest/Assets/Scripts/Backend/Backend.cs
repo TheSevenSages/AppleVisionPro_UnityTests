@@ -11,6 +11,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.XR.ARSubsystems;
 using static Messanger;
+using static UnityEngine.Rendering.ReloadAttribute;
 
 public class Backend : MonoBehaviour
 {
@@ -20,9 +21,11 @@ public class Backend : MonoBehaviour
     public string deviceName = "DEVICE_NAME";
     public bool isHost = false;
 
-    private HubConnection connection;
-    private bool isConnected = false;
-    private Task initTask = null;
+    private static HubConnection connection;
+    private static bool isConnected = false;
+
+    [HideInInspector]
+    public static Backend _instance = null;
 
     // Represents a package sent from the server
     private class PackageWrapper
@@ -32,6 +35,14 @@ public class Backend : MonoBehaviour
 
     private async void Awake()
     {
+        // Singleton pattern
+        if (_instance == null)
+        {
+            DontDestroyOnLoad(this);
+            _instance = this;
+        }
+        else { GameObject.Destroy(this); }
+
         // Build the connection
         connection = new HubConnectionBuilder()
             .WithUrl($"http://{BackendSettings.ip}:{BackendSettings.port}/connectionHub")
@@ -55,7 +66,7 @@ public class Backend : MonoBehaviour
     }
 
     // If not initialized yet wait until either we are or too much time passes.
-    private async Task WaitForInit(float timeout = 0.5f)
+    private static async Task WaitForInit(float timeout = 0.5f)
     {
         float totalWaitingTime = 0.0f;
         while (!isConnected) 
@@ -121,12 +132,27 @@ public class Backend : MonoBehaviour
             }
 
             // Parse the package Json into the type and message
-            Messanger.Message _package = JsonConvert.DeserializeObject<Messanger.Message>(package);
+            var _package = JsonConvert.DeserializeObject<Messanger.Message>(package);
             Messanger.ProcessIncomingMessage(_package);
         }
         catch (System.Exception e)
         {
             Debug.LogError("Failed to deserialize incoming message: " + e.Message);
+        }
+    }
+
+    public static async void SendMessage(Messanger.Message message)
+    {
+        try
+        {
+            if (_instance == null) { throw new Exception("No instance of \"Backend\" exists"); }
+            await WaitForInit();
+
+            await connection.SendAsync("SendMessage", message.type.ToString(), message.message);
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError("Failed to send message: " + e.Message);
         }
     }
 
