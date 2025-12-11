@@ -54,12 +54,15 @@ namespace DataStructures
         {
             UNKNOWN,
             WALL,
-            FLOOR
+            FLOOR,
+            CEILING,
+            OBJECT
         }
 
+        public int meshId = -1;
         public MeshTypes type = MeshTypes.UNKNOWN;
         public string encodedMesh = "";
-
+        public MeshPayload() { }
         public MeshPayload(Transform t) : base(t) {}
         public MeshPayload(Mesh m)
         {
