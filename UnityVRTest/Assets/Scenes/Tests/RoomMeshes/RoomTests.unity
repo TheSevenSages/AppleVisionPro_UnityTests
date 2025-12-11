@@ -581,6 +581,53 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
+--- !u!1 &665857388
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 665857390}
+  - component: {fileID: 665857389}
+  m_Layer: 0
+  m_Name: NetworkManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &665857389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 665857388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba4a622c21a7cd147be229b8328d0e09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Backend
+  BackendSettings: {fileID: 11400000, guid: 172244147764847488d4ddf4220321a6, type: 2}
+  deviceName: ROOM_SCANNER
+  isHost: 0
+--- !u!4 &665857390
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 665857388}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.49516, y: 0, z: 1.18897}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -1271,6 +1318,7 @@ GameObject:
   - component: {fileID: 1364895622}
   - component: {fileID: 1364895621}
   - component: {fileID: 1364895623}
+  - component: {fileID: 1364895624}
   m_Layer: 0
   m_Name: XR Origin
   m_TagString: Untagged
@@ -1326,9 +1374,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.XR.ARFoundation::UnityEngine.XR.ARFoundation.ARPlaneManager
   <trackablesChanged>k__BackingField:
     m_PersistentCalls:
-      m_Calls: []
-  m_PlanePrefab: {fileID: 0}
+      m_Calls:
+      - m_Target: {fileID: 1364895624}
+        m_TargetAssemblyTypeName: RoomScanner, Assembly-CSharp
+        m_MethodName: OnTrackablesChanged
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  m_PlanePrefab: {fileID: 1657606706924294729, guid: f1476d6c539fe904191dbe9a1349b6d0, type: 3}
   m_DetectionMode: -1
+--- !u!114 &1364895624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1364895620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74d40d40958b30f49a0291c9fca9951f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RoomScanner
+  sendLatency_ms: 500
 --- !u!1 &1422187735
 GameObject:
   m_ObjectHideFlags: 0
@@ -1439,10 +1512,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3473872863786641611, guid: 7ae2a3bb475471e4d9fb0e76340ab82f, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7ae2a3bb475471e4d9fb0e76340ab82f, type: 3}
 --- !u!1 &1498933725
 GameObject:
@@ -1469,7 +1539,7 @@ Transform:
   m_GameObject: {fileID: 1498933725}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1591,3 +1661,4 @@ SceneRoots:
   - {fileID: 1364895622}
   - {fileID: 7560887059774543957}
   - {fileID: 1436574812}
+  - {fileID: 665857390}

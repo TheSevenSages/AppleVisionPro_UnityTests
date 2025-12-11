@@ -150,7 +150,7 @@ public class Backend : MonoBehaviour
 
             await connection.SendAsync("SendMessage", message.type.ToString(), message.message);
         }
-        catch (System.Exception e)
+        catch (Exception e)
         {
             Debug.LogError("Failed to send message: " + e.Message);
         }

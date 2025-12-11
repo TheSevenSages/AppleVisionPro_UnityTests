@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 5241618589504440519}
   - component: {fileID: 3062672851351771755}
   - component: {fileID: 8022666235465185394}
-  - component: {fileID: 4622316444615459709}
   - component: {fileID: 2786511345699892801}
   - component: {fileID: 5035279694505803870}
   - component: {fileID: 4934708469227212381}
@@ -63,30 +62,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d180956a54db4646a1c6342921672ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_TrackingStateVisibilityThreshold: 1
-  m_HideSubsumed: 1
---- !u!64 &4622316444615459709
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8900596544245716783}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
+  m_TrackingStateVisibilityThreshold: 0
+  m_HideSubsumed: 0
 --- !u!33 &2786511345699892801
 MeshFilter:
   m_ObjectHideFlags: 0

@@ -19,11 +19,17 @@ namespace DataStructures
     public class TransformPayload
     {
         public TransformPayload() { }
-        //public TransformPayload(Transform t)
-        //{
-        //    position = t.position;
-        //    rotation = t.rotation;
-        //}
+        public TransformPayload(Transform t)
+        {
+            posX = t.position.x;
+            posY = t.position.y;
+            posZ = t.position.z;
+
+            rotX = t.rotation.x;
+            rotY = t.rotation.y;
+            rotZ = t.rotation.z;
+            rotW = t.rotation.w;
+        }
         public TransformPayload(Vector3 t)
         {
             posX = t.x;
@@ -38,36 +44,6 @@ namespace DataStructures
         public float rotY = 0.0f;
         public float rotZ = 0.0f;
         public float rotW = 0.0f;
-
-        //[JsonIgnore]
-        //public Vector3 position
-        //{
-        //    get 
-        //    {
-        //        return new Vector3(posX, posY, posZ);
-        //    }
-        //    set
-        //    {
-        //        posX = value.x;
-        //        posY = value.y;
-        //        posZ = value.z;
-        //    }
-        //}
-        //[JsonIgnore]
-        //public Quaternion rotation
-        //{
-        //    get
-        //    {
-        //        return new Quaternion(rotX, rotY, rotZ, rotW);
-        //    }
-        //    set
-        //    {
-        //        rotX = value.x;
-        //        rotY = value.y;
-        //        rotZ = value.z;
-        //        rotW = value.w;
-        //    }
-        //}
     }
 
     [Serializable]
@@ -83,6 +59,16 @@ namespace DataStructures
 
         public MeshTypes type = MeshTypes.UNKNOWN;
         public string encodedMesh = "";
+
+        public MeshPayload(Transform t) : base(t) {}
+        public MeshPayload(Mesh m)
+        {
+            encodedMesh = EncodeMesh(m);
+        }
+        public MeshPayload(Transform t, Mesh m) : base(t) 
+        {
+            encodedMesh = EncodeMesh(m);
+        }
 
         public static string EncodeMesh(Mesh mesh)
         {
