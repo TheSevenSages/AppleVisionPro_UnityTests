@@ -20,9 +20,9 @@ MonoBehaviour:
     rid: 8893109998704918627
   m_OverrideGlobalSceneList: 1
   m_Scenes:
-  - m_enabled: 0
-    m_path: Assets/Scenes/Tests/RoomMeshes/Meshviewer.unity
   - m_enabled: 1
+    m_path: Assets/Scenes/Tests/RoomMeshes/MeshViewer.unity
+  - m_enabled: 0
     m_path: Assets/Scenes/Tests/RoomMeshes/MeshSender.unity
   m_ScriptingDefines: []
   m_PlayerSettingsYaml:

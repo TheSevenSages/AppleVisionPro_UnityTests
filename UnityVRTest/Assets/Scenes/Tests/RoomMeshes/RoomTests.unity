@@ -1270,6 +1270,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1364895622}
   - component: {fileID: 1364895621}
+  - component: {fileID: 1364895623}
   m_Layer: 0
   m_Name: XR Origin
   m_TagString: Untagged
@@ -1311,6 +1312,23 @@ Transform:
   - {fileID: 1422187736}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1364895623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1364895620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1760703bbd54c04488a8d10600262ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.XR.ARFoundation::UnityEngine.XR.ARFoundation.ARPlaneManager
+  <trackablesChanged>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []
+  m_PlanePrefab: {fileID: 0}
+  m_DetectionMode: -1
 --- !u!1 &1422187735
 GameObject:
   m_ObjectHideFlags: 0
@@ -1327,7 +1345,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1422187736
 Transform:
   m_ObjectHideFlags: 0
@@ -1373,6 +1391,10 @@ PrefabInstance:
     - target: {fileID: 1277950848902457318, guid: 7ae2a3bb475471e4d9fb0e76340ab82f, type: 3}
       propertyPath: m_Name
       value: UIPanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 1277950848902457318, guid: 7ae2a3bb475471e4d9fb0e76340ab82f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3778678847272982525, guid: 7ae2a3bb475471e4d9fb0e76340ab82f, type: 3}
       propertyPath: m_LocalPosition.x

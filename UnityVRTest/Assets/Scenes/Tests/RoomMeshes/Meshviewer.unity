@@ -521,6 +521,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86e4611c0b4834147bd12dc5148e454c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomViewer
+  def: {fileID: 2100000, guid: 28a06b88e4bdbb7449da9cde369102d8, type: 2}
 --- !u!1 &348803520
 GameObject:
   m_ObjectHideFlags: 0

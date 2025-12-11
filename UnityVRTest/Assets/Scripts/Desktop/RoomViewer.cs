@@ -3,11 +3,15 @@ using HoloToolkit.Unity;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class RoomViewer : MonoBehaviour
 {
     List<MeshesPayload> payloads = new List<MeshesPayload>();
+
+    // Materials
+    public Material def;
     void Awake()
     {
         Messenger.MeshesMessageEvent.AddListener(GetMeshes);
@@ -30,7 +34,9 @@ public class RoomViewer : MonoBehaviour
                     var filter = obj.AddComponent<MeshFilter>();
                     filter.mesh = MeshPayload.DecodeMesh(mesh.encodedMesh);
 
-                    obj.AddComponent<MeshRenderer>();
+                    // Render the mesh
+                    var renderer = obj.AddComponent<MeshRenderer>();
+                    renderer.material = def;
                 }
             }
             payloads.Clear();
