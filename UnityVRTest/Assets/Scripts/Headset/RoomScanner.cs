@@ -75,7 +75,7 @@ public class RoomScanner : MonoBehaviour
                 _mesh.meshId = plane.trackableId.GetHashCode();
                 // Determine if the plane is a wall, floor, ceiling, or object and set the mesh type accordingly
                 Quaternion meshRotation = new Quaternion(_mesh.rotX, _mesh.rotY, _mesh.rotZ, _mesh.rotW);
-                if (Math.Abs(meshRotation.eulerAngles.x) > 45/* && plane.size.y >= Mathf.Abs(ceilingY - floorY) * 0.8f*/)
+                if (Math.Abs(meshRotation.eulerAngles.x) > 45 && plane.size.y >= Mathf.Abs(ceilingY - floorY) * 0.8f)
                 {
                     _mesh.type = MeshPayload.MeshTypes.WALL;
                 }

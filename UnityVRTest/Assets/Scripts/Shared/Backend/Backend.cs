@@ -185,15 +185,6 @@ public class Backend : MonoBehaviour
         }
     }
 
-    // Used to change 
-    public static void ChangeServerAddress(string address)
-    {
-        if (_instance != null)
-        {
-            _instance.BackendSettings.ip = address;
-        }
-    }
-
     private void OnDestroy()
     {
         if (connection != null)

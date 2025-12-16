@@ -95,4 +95,14 @@ namespace DataStructures
         public float floorY = 0.0f;
         public List<MeshPayload> meshes = new List<MeshPayload>();
     }
+
+    [Serializable]
+    public class TelemetryPayload : TransformPayload
+    {
+        public TelemetryPayload() { }
+        public TelemetryPayload(Transform t) : base(t) {}
+        public TelemetryPayload(Transform t, string _tag) : base(t) { tag = _tag; }
+
+        public string tag = "NONE";
+    }
 }

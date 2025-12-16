@@ -100,4 +100,9 @@ public class RoomViewer : MonoBehaviour
     {
         payloads.Add(payload);
     }
+
+    private void OnDestroy()
+    {
+        Messenger.MeshesMessageEvent.RemoveListener(GetMeshes);
+    }
 }
