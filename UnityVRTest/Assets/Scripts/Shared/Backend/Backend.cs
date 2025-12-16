@@ -33,15 +33,11 @@ public class Backend : MonoBehaviour
         public string type;
     }
 
-    private async void Awake()
+    // Connect to the server specified in BackendSettings
+    private async void StartConnection()
     {
-        // Singleton pattern
-        if (_instance == null)
-        {
-            DontDestroyOnLoad(this);
-            _instance = this;
-        }
-        else { GameObject.Destroy(this); }
+        // If a connection already exists, stop it before we start this new one
+        StopConnection();
 
         // Build the connection
         connection = new HubConnectionBuilder()
@@ -65,9 +61,33 @@ public class Backend : MonoBehaviour
         }
     }
 
+    public async void StopConnection()
+    {
+        if (connection != null)
+        {
+            await connection.StopAsync();
+        }
+        isConnected = false;
+    }
+
+    private void Awake()
+    {
+        // Singleton pattern
+        if (_instance == null)
+        {
+            DontDestroyOnLoad(this);
+            _instance = this;
+        }
+        else { GameObject.Destroy(this); }
+
+        StartConnection();
+    }
+
     // If not initialized yet wait until either we are or too much time passes.
     private static async Task WaitForInit(float timeout = 0.5f)
     {
+        if (connection == null) { throw new Exception("Connection to sever has not been established."); }
+
         float totalWaitingTime = 0.0f;
         while (!isConnected) 
         { 
@@ -153,6 +173,24 @@ public class Backend : MonoBehaviour
         catch (Exception e)
         {
             Debug.LogError("Failed to send message: " + e.Message);
+        }
+    }
+
+    // Use to restart the connection to the server after one of the backend settings has been changed.
+    public static void ResetConnection()
+    {
+        if (_instance != null)
+        {
+            _instance.StartConnection();
+        }
+    }
+
+    // Used to change 
+    public static void ChangeServerAddress(string address)
+    {
+        if (_instance != null)
+        {
+            _instance.BackendSettings.ip = address;
         }
     }
 

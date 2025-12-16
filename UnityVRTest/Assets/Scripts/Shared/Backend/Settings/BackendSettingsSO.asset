@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41e2695ee10561549a505ae0964d1d37, type: 3}
   m_Name: BackendSettingsSO
   m_EditorClassIdentifier: Assembly-CSharp::BackendSettingsSO
-  ip: 127.0.0.1
-  port: 8080
+  ip: 3.13.205.29
+  port: 8090
